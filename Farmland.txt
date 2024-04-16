@@ -1,0 +1,62 @@
+-- Create the database
+CREATE DATABASE farm_management;
+
+-- Use the database
+USE farm_management;
+
+-- Create a table for farms
+CREATE TABLE farm (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    location VARCHAR(255) NOT NULL,
+    size DECIMAL(10, 2) NOT NULL
+);
+
+-- Create a table for crops
+CREATE TABLE crop (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    planting_date DATE NOT NULL,
+    harvest_date DATE NOT NULL,
+    farm_id INT,
+    FOREIGN KEY (farm_id) REFERENCES farm(id)
+);
+-- Create a table for poultry
+CREATE TABLE poultry (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    quantity INT NOT NULL,
+    farm_id INT,
+    FOREIGN KEY (farm_id) REFERENCES farm(id)
+);
+
+-- Create a table for animal products
+CREATE TABLE animal_product (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    quantity INT NOT NULL,
+    farm_id INT,
+    FOREIGN KEY (farm_id) REFERENCES farm(id)
+);
+
+-- Create a table for farm owners
+CREATE TABLE farm_owner (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    farm_id INT,
+    FOREIGN KEY (farm_id) REFERENCES farm(id)
+);
+-- Create a table for equipment rentals
+CREATE TABLE equipment_rental (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    equipment_name VARCHAR(255) NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    farmer_id INT,
+    FOREIGN KEY (farmer_id) REFERENCES farm_owner(id)
+);
+
+
+
